@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+__pycache__/
+assets-src/
+extract_assets.py
+psd-preview.png
+assets/images/*.png
+assets/images/full-reference.jpg

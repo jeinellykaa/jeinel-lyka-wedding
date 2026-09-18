@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jei &amp; Lyka — January 8, 2027</title>
+    <meta
+      name="description"
+      content="Jei and Lyka are getting married on January 8, 2027 at Craft 1945, Baguio City."
+    />
+    <meta property="og:title" content="Jei & Lyka are getting married" />
+    <meta
+      property="og:description"
+      content="January 8, 2027 · Craft 1945, Baguio City"
+    />
+    <meta property="og:image" content="assets/images/og-share.jpg" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="#home">J &amp; L</a>
+        <button class="nav-toggle" type="button" aria-label="Open menu">Menu</button>
+        <nav class="nav">
+          <a href="#home">Home</a>
+          <a href="#venue">Venue</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#attire">Attire</a>
+          <a href="#faq">FAQ</a>
+          <a href="#rsvp">RSVP</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="invite" id="home">
+        <img
+          class="invite-art"
+          src="assets/images/invite-full.jpg"
+          alt="Illustrated wedding invitation for Jei and Lyka, January 8, 2027 at Craft 1945, Baguio City."
+        />
+
+        <div class="countdown-live" aria-label="Countdown">
+          <div class="count"><b data-count="days">0</b><span>Days</span></div>
+          <div class="count"><b data-count="hours">00</b><span>Hours</span></div>
+          <div class="count"><b data-count="minutes">00</b><span>Minutes</span></div>
+          <div class="count"><b data-count="seconds">00</b><span>Seconds</span></div>
+        </div>
+
+        <span id="venue" class="anchor"></span>
+        <a
+          class="hotspot hotspot-maps"
+          href="https://www.google.com/maps/search/?api=1&query=Craft+1945+9+Outlook+Drive+Baguio"
+          target="_blank"
+          rel="noopener"
+          data-maps
+          >View location</a
+        >
+
+        <span id="timeline" class="anchor"></span>
+        <span id="attire" class="anchor attire-anchor"></span>
+
+        <span id="rsvp" class="anchor rsvp-anchor"></span>
+        <button class="hotspot hotspot-gift" type="button" data-open="gift-modal">Gift details</button>
+        <button class="hotspot hotspot-rsvp" type="button" data-open="rsvp">RSVP now</button>
+
+        <button class="hotspot photo p1" type="button" data-full="assets/images/polaroid-1.jpg" aria-label="Open photo 1"></button>
+        <button class="hotspot photo p2" type="button" data-full="assets/images/polaroid-2.jpg" aria-label="Open photo 2"></button>
+        <button class="hotspot photo p3" type="button" data-full="assets/images/polaroid-3.jpg" aria-label="Open photo 3"></button>
+        <button class="hotspot photo p4" type="button" data-full="assets/images/polaroid-4.jpg" aria-label="Open photo 4"></button>
+        <button class="hotspot photo p5" type="button" data-full="assets/images/polaroid-5.jpg" aria-label="Open photo 5"></button>
+      </div>
+
+      <section class="faq" id="faq">
+        <h2>FAQ</h2>
+        <details open>
+          <summary>What time should we arrive?</summary>
+          <p>Reception begins at 10:00 AM. Please come a little early so we can start the ceremony together.</p>
+        </details>
+        <details>
+          <summary>Where is Craft 1945?</summary>
+          <p>9 Outlook Drive South, Baguio City. Parking is limited, so ride-hailing or carpooling is easiest.</p>
+        </details>
+        <details>
+          <summary>What is January weather like in Baguio?</summary>
+          <p>Cool and sometimes misty. Bring a light jacket or wrap you can keep on during outdoor moments.</p>
+        </details>
+        <details>
+          <summary>Can I bring a plus-one?</summary>
+          <p>Please RSVP only for the guests named on your invitation so we can keep the house cozy.</p>
+        </details>
+        <details>
+          <summary>Will Melo really be there?</summary>
+          <p>Yes. The bow tie is non-negotiable.</p>
+        </details>
+      </section>
+    </main>
+
+    <div class="modal" id="gift-modal" role="dialog" aria-labelledby="gift-title">
+      <div class="modal-card">
+        <h3 id="gift-title">Gift details</h3>
+        <div id="gift-body"></div>
+        <button class="btn" type="button" data-close>Close</button>
+      </div>
+    </div>
+
+    <div class="modal" id="rsvp-modal" role="dialog">
+      <div class="modal-card">
+        <h3>RSVP form coming next</h3>
+        <p>
+          Create a Google Form, then paste the share link into
+          <code>js/config.js</code> as <code>rsvpUrl</code>.
+        </p>
+        <button class="btn solid" type="button" data-close>Got it</button>
+      </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+      <img alt="Photo" />
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
