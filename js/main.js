@@ -97,43 +97,6 @@
     }
   });
 
-  /* Photo carousel / snaps */
-  const track = document.querySelector(".snaps-track");
-  const slides = document.querySelectorAll(".snaps-slide");
-  let snapIndex = 0;
-
-  function goSnap(i) {
-    if (!track || !slides.length) return;
-    snapIndex = (i + slides.length) % slides.length;
-    track.style.transform = "translateX(-" + snapIndex * 100 + "%)";
-    document.querySelectorAll(".snaps-dot").forEach(function (d, idx) {
-      d.classList.toggle("active", idx === snapIndex);
-    });
-  }
-
-  document.querySelectorAll("[data-snap-prev]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      goSnap(snapIndex - 1);
-    });
-  });
-  document.querySelectorAll("[data-snap-next]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      goSnap(snapIndex + 1);
-    });
-  });
-  document.querySelectorAll(".snaps-dot").forEach(function (dot, idx) {
-    dot.addEventListener("click", function () {
-      goSnap(idx);
-    });
-  });
-
-  /* Auto-advance snaps gently */
-  if (slides.length > 1) {
-    setInterval(function () {
-      goSnap(snapIndex + 1);
-    }, 5000);
-  }
-
   /* Scroll reveal animations */
   const reveals = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {

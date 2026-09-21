@@ -223,14 +223,14 @@ button {
   position: relative;
   max-width: 822px;
   margin: 0 auto;
-  padding: clamp(40px, 6vw, 80px) var(--pad);
+  padding: clamp(40px, 6vw, 80px) var(--pad) clamp(80px, 10vw, 132px);
 }
 
 .letter-card {
   position: relative;
   background: url("../assets/images/letter-bg.jpg") center / cover no-repeat;
   border-radius: 4px;
-  padding: clamp(48px, 8vw, 100px) clamp(28px, 6vw, 80px) clamp(56px, 8vw, 100px);
+  padding: clamp(130px, 18vw, 200px) clamp(28px, 6vw, 80px) clamp(56px, 8vw, 100px);
   min-height: 400px;
 }
 
@@ -333,24 +333,24 @@ button {
 
 .timeline-events .ev-name {
   color: var(--wine-mid);
-  font-size: clamp(14px, 2.8vw, 48px);
+  font-size: clamp(12px, 2.8vw, 48px);
   font-weight: 400;
 }
 
 .timeline-events .ev-time {
   color: var(--ink);
-  font-size: clamp(11px, 1.8vw, 32px);
+  font-size: clamp(10px, 1.8vw, 32px);
   margin-top: 2px;
 }
 
 /* Approximate positions from Desktop - 4 (relative % of illustration) */
 .timeline-events .e1 {
-  left: 28%;
+  left: 30%;
   top: 24%;
 }
 .timeline-events .e2 {
   left: 58%;
-  top: 28%;
+  top: 30%;
 }
 .timeline-events .e3 {
   left: 30%;
@@ -362,11 +362,11 @@ button {
 }
 .timeline-events .e5 {
   left: 32%;
-  top: 58%;
+  top: 56%;
 }
 .timeline-events .e6 {
-  left: 64%;
-  top: 62%;
+  left: 63%;
+  top: 60%;
 }
 
 @media (max-width: 700px) {
@@ -408,48 +408,55 @@ button {
 }
 
 /* ——— Gifts ——— */
+/* ——— Gifts ——— */
 .gifts {
-  position: relative;
   text-align: center;
-  padding: clamp(64px, 10vw, 120px) var(--pad);
-  overflow: hidden;
+  padding: clamp(40px, 6vw, 80px) var(--pad);
 }
 
-.gifts-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.gifts-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.95;
-}
-
-.gifts-inner {
-  position: relative;
-  z-index: 1;
+.gifts-frame {
+  position: relative;   /* required: positioning context for the text */
   max-width: 960px;
   margin: 0 auto;
 }
 
+.gifts-frame > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  vertical-align: top;
+}
+
+.gifts-inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;              /* same as inset: 0 */
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12% 10%;     /* keep text inside the ribbon curls */
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .gifts-title {
   font-family: var(--font-swash);
-  font-size: clamp(36px, 6vw, 96px);
-  margin: 0 0 24px;
+  font-size: clamp(28px, 5vw, 72px);
+  margin: 0 0 16px;
   line-height: 1.1;
 }
 
 .gifts-note {
   font-family: var(--font-script);
-  font-size: clamp(20px, 3vw, 48px);
-  line-height: 1.2;
+  font-size: clamp(16px, 2.5vw, 36px);
+  line-height: 1.25;
   color: var(--muted);
-  margin: 0 auto;
-  max-width: 900px;
+  margin: 0;
+  max-width: 36em;
 }
 
 /* ——— RSVP block ——— */
@@ -589,35 +596,34 @@ button {
 
 /* ——— Snaps gallery ——— */
 .snaps {
-  padding: clamp(32px, 5vw, 64px) var(--pad) clamp(48px, 6vw, 80px);
   max-width: var(--max);
   margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) var(--pad);
   text-align: center;
 }
 
-.snaps h2 {
-  font-family: var(--font-swash);
-  font-size: clamp(24px, 3vw, 36px);
-  margin: 0 0 24px;
-  font-weight: 400;
-  color: var(--wine-soft);
-}
-
 .snaps-viewport {
-  overflow: hidden;
-  border-radius: 4px;
   position: relative;
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 5;
   background: #f5f0ee;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
+/* Native scroll-snap track: swipe on touch, arrows on desktop */
 .snaps-track {
   display: flex;
   height: 100%;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
+  width: 100%;
+  overflow: visible;
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
+}
+.snaps-track:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: -4px;
 }
 
 .snaps-slide {
@@ -625,53 +631,156 @@ button {
   height: 100%;
 }
 
-.snaps-slide img {
+.snaps-open {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.snaps-open:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: -4px;
 }
 
-.snaps-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 16px;
+.snaps-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* no crop */
 }
 
+/* Arrows sit on top of the photo edges only, so the photo stays clickable */
 .snaps-arrow {
-  width: 40px;
-  height: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid var(--wine);
+  background: rgba(255, 254, 253, 0.92);
   color: var(--wine);
   display: grid;
   place-items: center;
-  font-size: 18px;
+  font-size: 24px;
+  line-height: 1;
+  padding: 0 0 3px;
+  cursor: pointer;
+  z-index: 2;
   transition: background 0.2s, color 0.2s;
 }
-
-.snaps-arrow:hover {
+.snaps-arrow.prev { left: 12px; }
+.snaps-arrow.next { right: 12px; }
+.snaps-arrow:hover,
+.snaps-arrow:focus-visible {
   background: var(--wine);
   color: #fff;
 }
 
-.snaps-dots {
+/* Dots */
+.snaps-controls {
   display: flex;
-  gap: 8px;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 12px;
 }
-
 .snaps-dot {
-  width: 8px;
-  height: 8px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.snaps-dot::before {
+  content: "";
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: #d4c4c4;
+  background: #ccc;
   transition: background 0.2s, transform 0.2s;
 }
-
-.snaps-dot.active {
+.snaps-dot[aria-current="true"]::before {
   background: var(--wine);
   transform: scale(1.25);
+}
+.snaps-dot:focus-visible {
+  outline: 2px solid var(--wine);
+  border-radius: 50%;
+}
+
+/* Lightbox (full-size view) */
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+}
+.lightbox[open] {
+  display: grid;
+  place-items: center;
+  animation: lightbox-in 0.25s ease;
+}
+.lightbox::backdrop {
+  background: rgba(20, 6, 6, 0.92);
+}
+.lightbox-img {
+  max-width: 100vw;
+  max-height: 100vh;
+  max-height: 100dvh;
+  object-fit: contain;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+.lightbox-close,
+.lightbox-arrow {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(20, 6, 6, 0.55);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  line-height: 1;
+  padding: 0 0 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lightbox-close:hover, .lightbox-arrow:hover,
+.lightbox-close:focus-visible, .lightbox-arrow:focus-visible {
+  background: var(--wine);
+}
+.lightbox-close { top: 16px; right: 16px; }
+.lightbox-arrow { top: 50%; transform: translateY(-50%); }
+.lightbox-arrow.prev { left: 16px; }
+.lightbox-arrow.next { right: 16px; }
+.lightbox-count {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-family: var(--font-swash);
+  font-size: 16px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+@keyframes lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ——— Footer ——— */
@@ -856,7 +965,7 @@ button {
     transform: none;
     transition: none;
   }
-  .snaps-track {
-    transition: none;
+  .lightbox[open] {
+    animation: none;
   }
 }
