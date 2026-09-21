@@ -228,9 +228,9 @@ button {
 
 .letter-card {
   position: relative;
-  background: url("../assets/images/letter-bg.jpg") center / cover no-repeat;
+  background: url("../assets/images/letter-bg.jpg") center / 100% 100% no-repeat;
   border-radius: 4px;
-  padding: clamp(130px, 18vw, 200px) clamp(28px, 6vw, 80px) clamp(56px, 8vw, 100px);
+  padding: clamp(130px, 18vw, 200px) clamp(56px, 12vw, 112px) clamp(56px, 8vw, 100px);
   min-height: 400px;
 }
 
@@ -241,6 +241,8 @@ button {
   color: var(--muted);
   margin: 0;
   white-space: pre-line;
+  max-width: 38em;
+  margin-inline: auto;
 }
 
 .letter-stamp {
@@ -907,38 +909,27 @@ button {
 
 /* ——— Responsive: mobile (Android Compact) ——— */
 @media (max-width: 560px) {
-  .nav-toggle {
-    display: block;
-  }
-
   .nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    gap: 0;
-    background: var(--bg);
-    border-bottom: 1px solid rgba(116, 3, 7, 0.12);
-    padding: 8px 0 16px;
-    font-size: 16px;
+    display: flex;
+    position: static;
+    flex-direction: row;
+    gap: 8px 16px;
+    padding: 0;
+    font-size: 14px;
   }
 
-  .nav.open {
-    display: flex;
+  .header-inner {
+    padding: 14px 16px;
   }
 
   .nav a {
-    padding: 12px 24px;
-    width: 100%;
-    text-align: center;
+    padding: 2px 0;
   }
 
   /* hero art keeps natural aspect on mobile */
 
   .letter-card {
-    padding: 48px 24px 56px;
+    padding: 120px 32px 56px;
   }
 
   .countdown-grid {
