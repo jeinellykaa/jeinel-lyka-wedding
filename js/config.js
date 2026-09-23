@@ -16,8 +16,8 @@ window.INVITE = {
   // Paste the latest Google Form viewform URL here for reference.
   googleFormUrl:
     "https://docs.google.com/forms/d/e/1FAIpQLSevBwOSCjUKSDfuQoZ6SyWy2NzPvb4ocnP806Jw3mTVYKiBKA/viewform?usp=header",
-  // Replace with the number from the Form pre-filled link: entry.123456789=TEST.
-  googleFormEntryId: "XXXXXX",
+  // Google Form field ID for "Please enter Full Name".
+  googleFormEntryId: "1609722263",
   gift: {
     headline: "Please, no gifts necessary!",
     note: "Having you with us on our special day is already something we'll treasure. If you'd like to give something beyond your presence, a monetary gift would be lovingly appreciated as we start this new chapter together.",
