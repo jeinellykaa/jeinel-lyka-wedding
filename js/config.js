@@ -10,8 +10,14 @@ window.INVITE = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Craft+1945+9+Outlook+Drive+Baguio",
   rsvpDeadline: "November 27, 2026",
-  /* Paste your Google Form (or other) share link when ready. Leave blank for now. */
-  rsvpUrl: "",
+  // Paste the latest Google Apps Script Web App /exec URL here after redeploying.
+  googleScriptUrl:
+    "https://script.google.com/macros/s/AKfycbybkRw4Lt1eUcfW7IGyBTFbeoT1SVRuKaQSHIjHHHQxohltcwz6mJpo2m2jVbcHRL-Y/exec",
+  // Paste the latest Google Form viewform URL here for reference.
+  googleFormUrl:
+    "https://docs.google.com/forms/d/e/1FAIpQLSevBwOSCjUKSDfuQoZ6SyWy2NzPvb4ocnP806Jw3mTVYKiBKA/viewform?usp=header",
+  // Replace with the number from the Form pre-filled link: entry.123456789=TEST.
+  googleFormEntryId: "XXXXXX",
   gift: {
     headline: "Please, no gifts necessary!",
     note: "Having you with us on our special day is already something we'll treasure. If you'd like to give something beyond your presence, a monetary gift would be lovingly appreciated as we start this new chapter together.",

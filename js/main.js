@@ -30,48 +30,121 @@
 
   /* Smooth nav + active underline */
   const navLinks = document.querySelectorAll(".nav a[href^='#']");
+  function scrollToTarget(target) {
+    const start = window.scrollY;
+    const destination = target.getBoundingClientRect().top + start;
+    const distance = destination - start;
+    const duration = 750;
+    const startedAt = performance.now();
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+
+    function step(now) {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      window.scrollTo(0, start + distance * eased);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        root.style.scrollBehavior = previousScrollBehavior;
+      }
+    }
+
+    window.requestAnimationFrame(step);
+  }
+
   navLinks.forEach(function (a) {
     a.addEventListener("click", function (e) {
       const id = a.getAttribute("href");
       const target = document.querySelector(id);
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        scrollToTarget(target);
         navLinks.forEach(function (l) {
           l.classList.remove("active");
         });
         a.classList.add("active");
-        document.querySelector(".nav")?.classList.remove("open");
       }
     });
   });
 
-  const toggle = document.querySelector(".nav-toggle");
-  const nav = document.querySelector(".nav");
-  if (toggle && nav) {
-    toggle.addEventListener("click", function () {
-      nav.classList.toggle("open");
-      toggle.setAttribute(
-        "aria-expanded",
-        nav.classList.contains("open") ? "true" : "false"
-      );
+  document.querySelectorAll("[data-scroll-rsvp]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      const target = document.querySelector(a.getAttribute("href"));
+      if (target) {
+        e.preventDefault();
+        scrollToTarget(target);
+      }
+    });
+  });
+
+  const rsvpModal = document.getElementById("rsvp-modal");
+  const rsvpLookup = document.getElementById("rsvp-lookup");
+  const rsvpCode = document.getElementById("rsvp-code");
+  const rsvpStatus = document.getElementById("rsvp-status");
+
+  function openRsvpLookup() {
+    if (!rsvpModal) return;
+    rsvpModal.classList.add("open");
+    if (rsvpStatus) {
+      rsvpStatus.textContent = "";
+      rsvpStatus.classList.remove("error");
+    }
+    window.setTimeout(function () {
+      if (rsvpCode) rsvpCode.focus();
+    }, 0);
+  }
+
+  document.querySelectorAll("[data-lookup-rsvp]").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(btn.getAttribute("href"));
+      if (target) scrollToTarget(target);
+      window.setTimeout(openRsvpLookup, 750);
+    });
+  });
+
+  if (rsvpLookup) {
+    rsvpLookup.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const name = rsvpCode ? rsvpCode.value.trim() : "";
+      if (!name || !rsvpStatus) return;
+
+      if (!cfg.googleScriptUrl || !cfg.googleFormEntryId || cfg.googleFormEntryId === "XXXXXX") {
+        rsvpStatus.textContent = "The RSVP lookup is not configured yet.";
+        rsvpStatus.classList.add("error");
+        return;
+      }
+
+      rsvpStatus.textContent = "Checking guest list...";
+      rsvpStatus.classList.remove("error");
+
+      try {
+        const url = cfg.googleScriptUrl + "?name=" + encodeURIComponent(name);
+        const response = await fetch(url, { method: "GET" });
+        if (!response.ok) throw new Error("Lookup request failed");
+        const data = await response.json();
+        if (!data.redirectUrl) throw new Error(data.error || "Code not found");
+
+        const separator = data.redirectUrl.includes("?") ? "&" : "?";
+        const redirectUrl =
+          data.redirectUrl +
+          separator +
+          "entry." +
+          encodeURIComponent(cfg.googleFormEntryId) +
+          "=" +
+          encodeURIComponent(name);
+        window.location.assign(redirectUrl);
+      } catch (error) {
+        rsvpStatus.textContent =
+          error.message === "Code not found"
+            ? "We couldn't find that code. Please check it and try again."
+            : "We couldn't check the guest list. Please try again.";
+        rsvpStatus.classList.add("error");
+      }
     });
   }
-
-  /* RSVP buttons — open form if configured, otherwise modal */
-  function handleRsvp(e) {
-    e.preventDefault();
-    if (cfg.rsvpUrl) {
-      window.open(cfg.rsvpUrl, "_blank", "noopener");
-      return;
-    }
-    const modal = document.getElementById("rsvp-modal");
-    if (modal) modal.classList.add("open");
-  }
-
-  document.querySelectorAll("[data-rsvp]").forEach(function (btn) {
-    btn.addEventListener("click", handleRsvp);
-  });
 
   /* Maps links already use href; ensure they open in new tab */
   document.querySelectorAll("[data-maps]").forEach(function (a) {
